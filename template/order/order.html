@@ -1,0 +1,84 @@
+{%extends 'layout/layout.html'%}
+
+
+{%block content%}
+{%load user_template%}
+<br><br>
+<h2 align="center">주문조회</h2>
+<table class="table" style="width: 800px;" align="center">
+    <thead>
+        <tr>
+            <th>주문일자</th>
+            <th>상품명</th>
+            <th>결제금액</th>
+            <th>배송비</th>
+            <th>결제취소</th>
+            <th>반품등록</th>
+        </tr>
+    </thead>
+
+    {% for i in p %}
+        <tr>
+            <td>
+                {{i.pay_join_date}}
+            </td>
+            <td>
+                {{i.pay_product_no.goods_name}}
+            </td>
+            <td>
+                {{i.pay_price}}
+            </td>
+            <td>
+                2500 원
+            </td>
+            <td>
+                <button onclick="location.href = '/order/delete/?no={{i.pay_idx}}'">결제취소</button>
+            </td>
+            <td>
+                <button onclick="location.href = '/order/returns/?no={{i.pay_idx}}'">반품등록</button>
+            </td>
+            {%empty%}
+            <tr>
+              <th colspan="5">상품이 없습니다.</th>
+          </tr>     
+            {% endf
+        </tr>
+    {%endfor%}
+</table>
+<br><br>
+<h2 align="center">배송상태</h2>
+<table class="table" style="width: 800px;" align="center">
+    <tr>
+        <th>주문번호</th>
+        <th>상품명</th>
+        <th>주소</th>
+        <th>배송상태</th>
+    </tr>
+    {% for a in d %}
+        <tr>
+            <td>
+                {{a.del_idx}}
+            </td>
+            <td>
+                {{a.del_goods_num.goods_name}}
+            </td>
+            <td>
+                {{a.del_addr}}
+            </td>
+            <td>
+                {% if a.del_situ == 0 %}
+                    배송 중
+                {%elif a.del_situ == 1%}
+                    배송 완료
+                {%endif%}
+            </td>
+        </tr>
+        {%empty%}
+        <tr>
+          <th colspan="4">상품이 없습니다.</th>
+      </tr>  
+        {%endfor%}
+</table>
+<br><br>
+
+{%endblock%}

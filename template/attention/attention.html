@@ -1,0 +1,27 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<div class="regibox" align="center">
+        
+    <h2>{{date}} 출석부</h2>
+    <div class="regi-page" style="padding-top: 20px;">
+        {% for names in names %}
+        <form method="POST" action="/attention/chk/">
+            <strong>{{names.admin_name}}:</strong>
+            {% csrf_token %}
+            <input type="hidden" id="date" name="date" value={{date}}>
+            <input type="hidden" id="name" name="name" value={{names.admin_name}}>
+            <input type="radio" name="attendance" value="출근">출근
+            <input type="radio" name="attendance" value="지각">지각
+            <input type="radio" name="attendance" value="결근">결근
+            <input type="radio" name="attendance" value="기타">기타
+            <!-- <input type="radio" name="attendance" value="기타" formaction="/chk">기타 -->
+            <br>
+            <button type="submit" value="submit">submit</button>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+
+{%endblock%}

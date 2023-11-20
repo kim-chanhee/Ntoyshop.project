@@ -1,0 +1,267 @@
+{%extends 'layout/layout.html'%}
+{%load static%}
+
+{%block script%}
+<script type="text/javascript">
+	function checkshow() {
+		if(document.show.count.value == ""){
+			alert("수량을 입력하세요");
+		}else if(parseInt(document.getElementById("stock").innerText.substr(0,2)) < parseInt(document.show.count.value)){
+            alert("재고가 없습니다.");
+        }
+		else{
+			document.show.submit();
+		}
+	}
+
+    //이벤트 실행
+        function enterkey() {
+            console.log(tot)
+        // console.log(document.getElementById("count").value*document.getElementById("sales").innerText);
+        var tot = document.getElementById("count").value*document.getElementById("sales").innerText
+        document.getElementById("Total").innerHTML = tot
+        console.log(tot)
+    }
+</script>
+{%endblock%}
+
+
+
+{%block content%}
+<div>
+    <div>
+
+    </div>
+    <form action="/pay/" method="post" name="show">
+        {% csrf_token %}
+        <input type="hidden" name="no" value="{{m.goods_num}}">
+        <input type="hidden" name="stock" value="{{count}}">
+        <input type="hidden" name="point" value="{{point}}">
+        <div>
+            <table class="table" style="width: 1000px" align="center">
+                <tr>
+                    <td rowspan="9"><img src="{{m.goods_image.url}}" alt="???"></td>
+                    <th colspan="2"><font style="size: 3;">{{m.goods_name}}</font></th>
+                </tr>
+                <tr>
+                    <td style="width: 150px;">
+                        소비자가격
+                    </td>
+                    <td>
+                        <strike>{{m.goods_c_price}}원</strike>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        판매가
+                    </td>
+                    <td>
+                        <font style="size: 3;">{{m.goods_sale_price}}</font>원
+                        <input type="hidden" id="sales" value="{{m.goods_sale_price}}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>배송비</td>
+                    <td>
+                        이 상품과 함께 담겨진 모든 주문은 배송비가 무료로<br>
+                        처리됩니다(추가배송비 상품 제외)
+                        제주도 및 도서산간 추가배송비 발생
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        적립금
+                    </td>
+                    <td>
+                        1%
+                    </td>
+                    <input type="hidden" name="point" value="{{point}}">
+                </tr>
+                <tr>
+                    <td>
+                        남은 수량
+                    </td>
+                    <td id="stock">
+                        {{m.goods_stock}}개
+                    </td>
+                </tr>
+                <tr>
+                    <td>수량</td>
+                    <td><input type="number" id="count" name="count" onclick="enterkey()"></td>
+                </tr>
+                <tr>
+                    <td>
+                        총 상품 금액
+                    </td>
+                    <td>
+                        <p id="Total"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="button" class="btn btn-light">찜하기</button>
+                        <input type="button" class="btn btn-secondary" onclick="document.location.href='/basket/basketinfo/?no={{m.goods_num}}'" value="장바구니">
+                        <input type="button"class="btn btn-secondary" value="바로구매" onclick="javascript:checkshow()">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">
+                        <img src="{{m.goods_info.url}}" style="width:500px">
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+    </form>
+    
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width:inherit; margin: 0px auto;">
+            <tr style="border-bottom: 1px black solid;">
+                <th>후기번호</th>
+                <th>제목</th>
+                <th>제품명</th>
+                <th>사용자id</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            {% for r in rlist %}
+                <tr>
+                    <td>{{r.rev_no}}</td>
+                    <td>
+                        <a href="/board/reviewRead/?rev_no={{r.rev_no}}">{{r.rev_title}}</a>
+                    </td>
+                    <td>{{r.rev_product_no.goods_name}}</td>
+                    <td>{{r.rev_user_no.user_id}}</td>
+                    <td>{{r.rev_use_date|date:'Y년 m월 d일'}}</td>
+                    <td>{{r.rev_view_count}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                        작성된 글이 없습니다
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan="5" style="text-align: right;">
+                
+                    {% if request.session.login != None %}
+                        <button onclick="document.location.href='/board/reviewWrite/?no={{m.goods_num}}'">후기작성</button>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+   
+
+
+
+        <div style="text-align: center; margin-top: 10px;">
+            <!-- 페이지 인덱스 부분 -->
+
+            {% if rlist.has_previous %}
+                <a href="/board/reviewList/?page=1">[<<]</a>
+                <a href="/board/reviewList/?page={{ rlist.previous_page_number}}">[<]</a>
+            {% else %}
+                [<<][<]
+            {% endif %}
+
+            {% for rpage_number in rlist.paginator.page_range %}
+                {% if rstart_page <= rpage_number and rend_page >= rpage_number %}
+                    {% if rpage_number == rlist.number %}
+                        <a href = "#" style="font-weight: bolder; color: chocolate;">{{rpage_number}}</a>
+                    {% else %}
+                        <a href="/board/reviewList/?page={{rpage_number}}">[{{rpage_number}}]</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if rlist.has_next %}
+                <a href = "/board/reviewList/?page={{ rlist.next_page_number }}">[>]</a>
+                <a href="/board/reviewList/?page={{rlast_page}}">[>>]</a>
+            {% else %}
+                [>][>>]
+            {% endif %}
+        </div>
+    </div>
+
+    
+
+    {% load user_template %}
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width:inherit; margin: 0px auto;">
+            <tr style="border-bottom: 1px black solid;">
+                <th>질문번호</th>
+                <th>제목</th>
+                <th>회원id</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            {% for q in qlist %}
+                <tr>
+                    <td>{{q.q_num}}</td>
+                    <td>
+                        {% autoescape off %}{{ q.q_depth|reStr }}{% endautoescape %}
+                        <a href="/board/qnaRead/?q_num={{q.q_num}}">{{q.q_title}}</a>
+                    </td>
+
+                    <td>{{q.q_c_num.user_id}}</td>
+                    <td>{{q.q_w_date|date:'Y년 m월 d일'}}</td>
+                    <td>{{q.q_hits}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                        작성된 글이 없습니다
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="text-align: right;">
+                    {% if request.session.login != None %}
+                        <button onclick="document.location.href='/board/qnaWrite/0/?no={{m.goods_num}}'">QnA작성</button>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <div style="text-align:right; margin-top:10px;">
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+            <!-- 페이지 인덱스 부분 -->
+
+            {% if qlist.has_previous %}
+                <a href="/board/qnaList/?page=1">[<<]</a>
+                <!-- qna 부분 서브앱 명으로 변경이 필요 -->
+                <a href="/board/qnaList/?page={{ qlist.previous_page_number}}">[<]</a>
+            {% else %}
+                [<<][<]
+            {% endif %}
+
+            {% for qpage_number in qlist.paginator.page_range %}
+                {% if qstart_page <= qpage_number and qend_page >= qpage_number %}
+                    {% if qpage_number == qlist.number %}
+                        <a href = "#" style="font-weight: bolder; color: chocolate;">{{qpage_number}}</a>
+                    {% else %}
+                        <a href="/board/qnaList/?page={{qpage_number}}">[{{qpage_number}}]</a>
+                        <!-- qna부분 서브앱명으로 변경이 필요 -->
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if qlist.has_next %}
+                <a href = "/board/qnaList/?page={{ qlist.next_page_number }}">[>]</a>
+                <a href="/board/qnaList/?page={{qlast_page}}">[>>]</a>
+            {% else %}
+                [>][>>]
+            {% endif %}
+        </div>
+    </div>
+    
+    
+</div>
+
+
+
+{%endblock%}

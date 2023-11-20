@@ -1,0 +1,52 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">회원관리</h2>
+<table class="table" style="width: 1100px;" align="center">
+    <thead>
+        <tr>
+            <th>회원 번호</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>비밀번호</th>
+            <th>전화번호</th>
+            <th>이메일</th>
+            <th>주소</th>
+            <th>수정/삭제</th>
+
+        </tr>
+    </thead>
+
+    {% for i in m %}
+        <tr>
+            <td>
+                {{i.user_no}}
+            </td>
+            <td>
+                {{i.user_id}}
+            </td>
+            <td>
+                {{i.user_name}}
+            </td>
+            <td>
+                {{i.user_pw}}
+            </td>
+            <td>
+                {{i.phone}}
+            </td>
+            <td>
+                {{i.email}}
+            </td>
+            <td>
+                {{i.addr}}
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/customerUpdate/?no={{i.user_no}}'">수정</button>
+                <button onclick="location.href = '/manager/customerDelete/?no={{i.user_no}}'">삭제</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}

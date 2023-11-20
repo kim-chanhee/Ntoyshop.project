@@ -1,0 +1,25 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+
+{% block content %}
+<br><br>
+<table class="table" style="width: 600px;" align="center">
+    <thead>
+        <tr>
+            <th colspan="4">
+                카드관리
+            </th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td align="center">
+            <input type="button"class="btn btn-secondary" value="카드 등록" onclick="document.location.href='/manager/card/'">
+        </td>
+        <td align="center">
+            <input type="button"class="btn btn-secondary" value="카드 목록" onclick="document.location.href='/manager/cardList/'">
+        </td>
+    </tr>
+    </table>
+{%endblock%}

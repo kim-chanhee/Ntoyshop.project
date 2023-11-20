@@ -1,0 +1,72 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width:inherit; margin: 0px auto;">
+            <tr style="border-bottom: 1px black solid;">
+                <th>후기번호</th>
+                <th>제목</th>
+                <th>제품명</th>
+                <th>사용자id</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            {% for r in list %}
+                <tr>
+                    <td>{{r.rev_no}}</td>
+                    <td>
+                        <a href="/board/reviewRead/?rev_no={{r.rev_no}}">{{r.rev_title}}</a>
+                    </td>
+                    <td>{{r.rev_product_no.goods_name}}</td>
+                    <td>{{r.rev_user_no.user_id}}</td>
+                    <td>{{r.rev_use_date|date:'Y년 m월 d일'}}</td>
+                    <td>{{r.rev_view_count}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                        작성된 글이 없습니다
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <!-- <tr>
+                <td colspan="5" style="text-align: right;">
+                
+                    {% if request.session.login != None %}
+                        <button onclick="document.location.href='/board/reviewWrite/'">후기작성</button>
+                    {% endif %}
+                </td>
+            </tr> -->
+        </table>
+        <div style="text-align:right; margin-top:10px;">
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+            <!-- 페이지 인덱스 부분 -->
+
+            {% if list.has_previous %}
+                <a href="/board/reviewList/?page=1">[<<]</a>
+                <a href="/board/reviewList/?page={{ list.previous_page_number}}">[<]</a>
+            {% else %}
+                [<<][<]
+            {% endif %}
+
+            {% for page_number in list.paginator.page_range %}
+                {% if start_page <= page_number and end_page >= page_number %}
+                    {% if page_number == list.number %}
+                        <a href = "#" style="font-weight: bolder; color: chocolate;">{{page_number}}</a>
+                    {% else %}
+                        <a href="/board/reviewList/?page={{page_number}}">[{{page_number}}]</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if list.has_next %}
+                <a href = "/board/reviewList/?page={{ list.next_page_number }}">[>]</a>
+                <a href="/board/reviewList/?page={{last_page}}">[>>]</a>
+            {% else %}
+                [>][>>]
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

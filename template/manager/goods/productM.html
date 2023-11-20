@@ -1,0 +1,57 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">상품관리</h2>
+<table class="table" style="width: 1000px;" align="center">
+    <thead>
+        <tr>
+            <th>상품 번호</th>
+            <th>상품 이름</th>
+            <th>소비 가격</th>
+            <th>판매 가격</th>
+            <th>중분류</th>
+            <th>대분류</th>
+            <th>재고</th>
+            <th>입고</th>
+            <th>수정/삭제</th>
+            
+        </tr>
+    </thead>
+
+    {% for i in p %}
+        <tr>
+            <td>
+                {{i.goods_num}}
+            </td>
+            <td>
+                {{i.goods_name}}
+            </td>
+            <td>
+                {{i.goods_c_price}}
+            </td>
+            <td>
+                {{i.goods_sale_price}}
+            </td>
+            <td>
+                {{i.goods_idx_b}}
+            </td>
+            <td>
+                {{i.goods_idx_a}}
+            </td>
+            <td>
+                {{i.goods_stock}}
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/plusAccount/?no={{i.goods_num}}'">입고</button>
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/productUpdate/?no={{i.goods_num}}'">수정</button>
+                <button onclick="location.href = '/manager/productDelete/?no={{i.goods_num}}'">삭제</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}
+

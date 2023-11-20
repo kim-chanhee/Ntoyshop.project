@@ -1,0 +1,24 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<div style="display: flex; justify-content: center;">
+
+    <div><table>
+        <tr>
+            <td align="center">
+                {{msg}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button"class="btn btn-secondary" value="관리자 홈으로" onclick="document.location.href='/manager/'">
+                <input type="button"class="btn btn-secondary" value="수정" onclick="document.location.href='/manager/card/'">
+            </td>
+        </tr>
+    </table>
+
+    </div>
+
+</div>
+{%endblock%}

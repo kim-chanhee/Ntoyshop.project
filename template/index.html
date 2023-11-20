@@ -1,0 +1,119 @@
+{%extends 'layout/layout.html'%}
+
+
+{%block content%}
+
+
+<!--New -->
+
+
+<!--추천상품-->
+
+<div id="middle_menu">
+<div class="container">
+<div class="row mx-md-n5">
+  <div class="col px-md-5">
+    <div class="p-3 ">
+    추천 상품N토이샵이 추천하는 상품입니다.
+    </div>
+ </div>
+</div>
+<div class="container" style="text-align : center;">
+  <div class="row" style="padding: 10px 0px 5px;">
+        <div class="media position-relative">
+          <img src="https://www.ntoyshop.com/design/fstr07/da_image/md_banner1.gif" class="mr-3" alt="...">
+          <div class="media-body">
+            <a href="/browse/page/?no=6" class="stretched-link"></a>
+          </div>
+        </div>
+        <div class="media position-relative">
+          <img src="https://www.ntoyshop.com/design/fstr07/da_image/md_banner2.gif" class="mr-3" alt="...">
+          <div class="media-body">
+            <a href="/browse/page/?no=5" class="stretched-link"></a>
+          </div>
+        </div>
+        <div class="media position-relative">
+          <img src="https://www.ntoyshop.com/design/fstr07/da_image/md_banner3.gif" class="mr-3" alt="...">
+          <div class="media-body">
+            <a href="#" class="stretched-link"></a>
+          </div>
+        </div>
+        <div class="media position-relative">
+          <img src="https://www.ntoyshop.com/design/fstr07/da_image/md_banner4.gif" class="mr-3" alt="...">
+          <div class="media-body">
+            <a href="/browse/page/?no=4" class="stretched-link"></a>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<!--BEST-->
+<div class="container">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-toggle="tab" data-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">미미월드</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-toggle="tab" data-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">신비 아파트</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="contact-tab" data-toggle="tab" data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">토미카</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><ul class="items">
+        <table class="table" style="width:600px; height:200px;" align="center">
+          <tr>
+              {%for i in m%}
+              
+                  <td style="width: 150px; height: 200px;" align="center"><div>
+                  <div >                   
+                      <a href="/browse/show/?no={{i.goods_num}}"><img src="{{i.goods_image.url}}" width="175" height="250" class="img-thumbnail"></a>
+                  </div>
+                      <a href="/browse/show/?no={{i.goods_num}}">{{i.goods_name}}</a><br>
+      
+                      <strike>{{i.goods_c_price}}원</strike>     
+  
+                      {{i.goods_sale_price}}원
+                  </td>
+              </div>
+  
+              {%endfor%}
+          </tr>
+      </table>
+      </div>
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  </div>
+
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+</div>
+</div>
+
+<!-- <ul class="items">
+<li><img src="https://www.ntoyshop.com/shopimages/fstr07/0020220000902.jpg?1662449767"></li>
+<li class="a">미미월드 초성게임왕 초성원카드</li>
+<li class="b">12,000<span>6980won</span></li>
+</ul> -->
+
+
+
+<img src="https://www.ntoyshop.com/design/fstr07/da_image/fix_banner.jpg" class="img-fluid" alt="...">
+
+
+
+
+<!--REViEW-->
+
+{%endblock%}
+
+
+
+
+
+
+

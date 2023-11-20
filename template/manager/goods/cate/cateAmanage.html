@@ -1,0 +1,31 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">대분류관리</h2>
+<table class="table" style="width: 800px;" align="center">
+    <thead>
+        <tr>
+            <th>대분류 번호</th>
+            <th>대분류 이름</th>
+            <th>수정/삭제</th>
+        </tr>
+    </thead>
+
+    {% for i in m %}
+        <tr>
+            <td>
+                {{i.a_idx}}
+            </td>
+            <td>
+                {{i.a_name}}
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/updateCateA/?no={{i.a_idx}}'">수정</button>
+                <button onclick="location.href = '/manager/deleteCateA/?no={{i.a_idx}}'">삭제</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}

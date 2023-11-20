@@ -1,0 +1,49 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<form action="/manager/cateBupResult/" method="post" name="cateA">
+    {% csrf_token %}
+    <input type="hidden" name="no" value="{{m.b_idx}}">
+    <table class="table" style="width: 600px;" align="center">
+        <thead>
+            <tr>
+                <th align="center" colspan="2">
+                    중분류 등록
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <th>중분류 이름</th>
+            <td>
+                <input type="text" name="name" required>
+            </td>
+        </tr>
+        <tr>
+            <th>대분류</th>        
+            <td>
+                <fieldset>
+                    <select id="class" name="cateA">
+                      
+                        <optgroup label="대분류">
+                          {% for i in a%}
+                            <option value="{{i.a_idx}}">{{i.a_name}}</option>
+                          {%endfor%}
+                        </optgroup>
+  
+                </select>
+                </fieldset>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit"class="btn btn-secondary" value="수정">
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+{%endblock%}

@@ -1,0 +1,87 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">주문조회</h2>
+<table class="table" style="width: 1200px;" align="center">
+    <thead>
+        <tr>
+            <th>주문번호</th>
+            <th>주문회원명</th>
+            <th>회원ID</th>
+            <th>상품명</th>
+            <th>주소</th>
+            <th>배송상태</th>
+            <th>배송완료처리</th>
+            <th>결제취소</th>
+        </tr>
+    </thead>
+
+    {% for i in d %}
+        <tr>
+            <td>
+                {{i.del_idx}}
+            </td>
+            <td>
+                {{i.del_user_no.user_name}}
+            </td>
+            <td>
+                {{i.del_user_no.user_id}}
+            </td>
+            <td>
+                {{i.del_goods_num.goods_name}}
+            </td>
+            <td>
+                {{i.del_addr}}
+            </td>
+            <td>
+                {% if i.del_situ == 0 %}
+                    배송 중
+                {%elif i.del_situ == 1%}
+                    배송 완료
+                {%endif%}
+            </td>
+            <td>
+                <button onclick="location.href = '/order/delUpdate/?no={{i.del_idx}}'">배송완료처리</button>
+            </td>
+            <td>
+                <button onclick="location.href = '/order/delDelete/?no={{i.del_idx}}'">결제취소</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+<br><br>
+<h2 align="center">반품조회</h2>
+<table class="table" style="width: 1200px;" align="center">
+    <thead>
+        <tr>
+            <th>반품번호</th>
+            <th>결제번호</th>
+            <th>반품등록일</th>
+            <th>반품사유</th>
+            <th>취소</th>
+        </tr>
+    </thead>
+
+    {% for a in r %}
+        <tr>
+            <td>
+                {{a.re_idx}}
+            </td>
+            <td>
+                {{a.re_payment_no}}
+            </td>
+            <td>
+                {{a.re_return_date}}
+            </td>
+            <td>
+                {{a.re_return_reason}}
+            </td>
+            <td>
+                <button onclick="location.href = '/order/reDelete/?no={{a.re_idx}}'">반품취소</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}

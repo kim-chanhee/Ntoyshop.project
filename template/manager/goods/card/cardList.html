@@ -1,0 +1,32 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">대분류관리</h2>
+<table class="table" style="width: 1000px;" align="center">
+    <thead>
+        <tr>
+            <th>카드 번호</th>
+            <th>카드 이름</th>
+            <th>수정/삭제</th>
+            
+        </tr>
+    </thead>
+
+    {% for i in c %}
+        <tr>
+            <td>
+                {{i.card_idx}}
+            </td>
+            <td>
+                {{i.card_name}}
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/cardUpdate/?no={{i.card_idx}}'">수정</button>
+                <button onclick="location.href = '/manager/cardDelete/?no={{i.card_idx}}'">삭제</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}

@@ -1,0 +1,50 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<h2 align="center">관리자 관리</h2>
+<table class="table" style="width: 800px;" align="center">
+    <thead>
+        <tr>
+            <th>관리자 번호</th>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>부서명</th>
+            <th>수정/삭제</th>
+        </tr>
+
+    </thead>
+
+    {% for i in admin %}
+        <tr>
+            <td>
+                {{i.admin_idx}}
+            </td>
+            <td>
+                {{i.admin_id}}
+            </td>
+            <td>
+                {{i.admin_name}}
+            </td>
+            <td>
+                {% if i.admin_department_no == 1%}
+                    관리자
+                {% elif i.admin_department_no == 2 %}
+                    마케팅
+                {% elif i.admin_department_no == 3 %}
+                    인사
+                {% elif i.admin_department_no == 4 %}
+                    재고관리
+                {% elif i.admin_department_no == 5 %}
+                    고객관리
+                {% endif %}
+            </td>
+            <td>
+                <button onclick="location.href = '/manager/update/?no={{i.admin_idx}}'">수정</button>
+                <button onclick="location.href = '/manager/delete/?no={{i.admin_idx}}'">삭제</button>
+            </td>
+        </tr>
+    {%endfor%}
+</table>
+{%endblock%}

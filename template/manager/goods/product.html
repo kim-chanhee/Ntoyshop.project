@@ -1,0 +1,124 @@
+{%extends 'layout/layout_admin.html'%}
+{%block script%}
+<script type="text/javascript">
+	function check() {
+		if(document.product.name.value == ""){
+			alert("이름을 입력하십시오!");
+		}else if(document.product.cprice.value == ""){
+			alert("아이디을 입력하십시오!")
+		}else if(document.product.rprice.value == ""){
+			alert("비밀번호을 입력하십시오!")
+        }
+		else{
+			document.product.submit();
+		}
+	}
+</script>
+{%endblock%}
+
+{%block content%}
+<form action="/manager/productResult/" method="post" name="product" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table" style="width: 800px;" align="center">
+        <thead>
+            <tr>
+                <th>상품등록</th>
+            </tr>
+        </thead>
+        <tr>
+            <th>
+                상품이름
+            </th>
+            <td>
+                <input type="text" name="name">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                소비가격
+            </th>
+            <td>
+                <input type="number" name="cprice">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                판매가격
+            </th>
+            <td>
+                <input type="number" name="rprice">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                대분류
+            </th>
+            <td>
+
+                <fieldset>
+                    <select id="class" name="catea">
+                        <optgroup label="부서">
+                        {%for i in a %}
+                          <option value="{{i.a_idx}}">{{i.a_name}}</option>
+                        {%endfor%}
+                        </optgroup>
+                </select>
+                </fieldset>
+           </td>
+        </tr>
+        <tr>
+            <th>
+                중분류
+            </th>
+            <td>
+                <fieldset>
+                    <select id="class" name="cateb">
+                        <optgroup label="부서">
+                        {%for i in b %}
+                          <option value="{{i.b_idx}}">{{i.b_name}}</option>
+                        {%endfor%}
+                        </optgroup>
+                </select>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <th>상품이미지</th>
+            <td>
+                <input type="file" name="image" accept="image/*">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                상품정보
+            </th>
+            <td>
+                <input type="file" name="info" accept="image/*" multiple>
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                마일리지
+            </th>
+            <td>
+                <input type="number" name="point">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                재고
+            </th>
+            <td>
+                <input type="number" name="stock">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="button"class="btn btn-secondary" value="등록" onclick="javascript:check()">
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}

@@ -1,0 +1,30 @@
+{% extends 'layout/layout.html' %}
+
+{% block script %}
+    <script type="text/javascript">
+        function checkupdate() {
+            if(document.write.rev_title.value == ""){
+                alert("제목입력필요");
+            }else if(document.write.rev_afterword.value == ""){
+                alert("내용 입력 필요");
+            }else{
+                document.write.submit();
+            }
+        }
+    </script>
+{% endblock %}
+{% block content %}
+    <div style="width: 90%; margin: 0px auto;">
+        <form action="/board/reviewUpdateCheck/" method="post" name="write">
+            {% csrf_token %}
+            <input type="hidden" name="rev_no" value="{{rev_no}}">
+            <table class="table" style="margin:0px auto;;">
+                {{forms.as_table}}
+            </table>
+            <div class = "button" style="text-align: center; margin-top: 10px; width: inherit;">
+                <input type="button" value="수정" onclick="javascript:checkupdate()">
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

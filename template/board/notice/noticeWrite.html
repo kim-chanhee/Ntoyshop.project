@@ -1,0 +1,34 @@
+{% extends 'layout/layout.html' %}
+{% block script %}
+<script type="text/javascript">
+    function checknotice() {
+        if(document.write.not_title.value == ""){
+            alert("제목 입력 필요");
+        }else if(document.write.not_content.value == ""){
+            alert("내용 입력 필요");
+        }else{
+                document.write.submit();
+        }
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+    <div style="width: 90%; margin: 0px auto; margin-left: 300px;">
+        <form action="/board/noticeWriteCheck/" method="post" name="write">
+            <!-- action부분에 지정하게될 앱명이 들어가야함 -->
+            {% csrf_token %}
+            <table>
+                {{forms.as_table}}
+                <tr>
+                    <td colspan = "2" style="text-align: right;">
+                        <input type="button" value="공지작성" onclick="javascript:checknotice()">
+                    </td>
+                </tr>
+            </table>
+            <div class="button" style="text-align:right; margin-top: 10px">
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

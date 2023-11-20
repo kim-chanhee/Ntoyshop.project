@@ -1,0 +1,108 @@
+{%extends 'layout/layout_admin.html'%}
+{%block script%}
+<script type="text/javascript">
+	function check() {
+		if(document.product.name.value == ""){
+			alert("이름을 입력하십시오!");
+		}else if(document.product.cprice.value == ""){
+			alert("아이디을 입력하십시오!")
+		}else if(document.product.rprice.value == ""){
+			alert("비밀번호을 입력하십시오!")
+        }
+		else{
+			document.product.submit();
+		}
+	}
+</script>
+{%endblock%}
+
+{%block content%}
+<form action="/manager/pUpdateResult/" method="post" name="product" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="no" value="{{p.goods_num}}">
+    <table class="table" style="width: 800px;" align="center">
+        <thead>
+            <tr>
+                <th>상품등록</th>
+            </tr>
+        </thead>
+        <tr>
+            <th>
+                상품이름
+            </th>
+            <td>
+                <input type="text" name="name" value="{{p.goods_name}}">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                소비가격
+            </th>
+            <td>
+                <input type="number" name="cprice" value="{{p.goods_c_price}}">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                판매가격
+            </th>
+            <td>
+                <input type="number" name="rprice" value="{{p.goods_sale_price}}">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                대분류 번호
+            </th>
+            <td>
+                <input type="number" name="catea" value="{{p.goods_idx_a}}">
+           </td>
+        </tr>
+        <tr>
+            <th>
+                중분류 번호
+            </th>
+            <td>
+                <input type="number" name="cateb" value="{{p.goods_idx_b}}">
+            </td>
+        </tr>
+        <tr>
+            <th>상품이미지</th>
+            <td>
+                <input type="file" name="image" accept="image/*" value="{{p.goods_image}}">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                상품정보
+            </th>
+            <td>
+                <input type="file" name="info" accept="image/*" multiple value="{{p.goods_info}}">
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                마일리지
+            </th>
+            <td>
+                <input type="number" name="point">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                재고
+            </th>
+            <td>
+                <input type="number" name="stock" value="{{p.goods_stock}}">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="button"class="btn btn-secondary" value="수정" onclick="javascript:check()">
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}

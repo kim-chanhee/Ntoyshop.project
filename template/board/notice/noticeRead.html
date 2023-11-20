@@ -1,0 +1,49 @@
+{% extends 'layout/layout.html' %}
+{% block script %}
+    <script type="text/javascript">
+        function deleteAction(){
+            var check = confirm("삭제하겠습니까?");
+
+            if(!check){
+                return
+            }
+
+            location.href= '/board/noticeDelete/?not_num={{content.not_num}}'
+            // 여기 수정 필요
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width: inherit; margin: 0px auto;">
+            <tr>
+                <th>제목</th>
+                <td>{{content.not_title}}</td>
+                <th>조회수</th>
+                <td>{{content.not_hits}}</td>
+                <th>작성일</th>
+                <td>{{content.not_write_date}}</td>
+            </tr>
+            <tr>
+                <th>공지내용</th>
+                <td colspan="5">
+                    {% autoescape off %}
+                        {{content.not_content}}
+                    {% endautoescape %}
+                </td>
+            </tr>
+
+        </table>
+        <div class="button" style="width: inherit; margin: 0px auto; display:flex; justify-content: center">
+        {% if request.session.manager == content.not_admin_num.admin_idx %}
+        <!-- 관리자 모델과 멤버 모델의 연결관계확인 필요 -->
+            <input type="button" value="수정" onclick="location.href='/board/noticeUpdate?not_num={{content.not_num}}'">
+            <input type="button" value="삭제" onclick="deleteAction()">
+        {% endif %} 
+        <!-- 멤버 테이블과의 연동 -->
+        <input type="button" value="목록" onclick="location.href='/board/noticeList/'">
+        </div>
+    </div>
+{% endblock %}

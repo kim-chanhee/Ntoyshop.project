@@ -1,0 +1,24 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+
+{% block content %}
+<br><br>
+<table class="table" style="width: 600px;" align="center">
+    <thead>
+        <tr>
+            <th colspan="4">
+                분류 선택
+            </th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td align="center">
+            <input type="button"class="btn btn-secondary" value="급여지급" onclick="document.location.href='/finance/salary/'">
+        </td>
+        <td align="center">
+            <input type="button"class="btn btn-secondary" value="급여관리" onclick="document.location.href='/finance/manage/'">
+        </td>
+</table>
+{%endblock%}

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  {%block script%}{%endblock%}
+
+  <style>
+    #middle_menu {
+      height: 420px;
+      background-color: lightgray;
+    }
+
+    .items {
+      width: 242px;
+      float: left;
+      margin: 30px 0 0 25px;
+    }
+
+    .items .a {
+      font-weight: bold;
+      color: black;
+      margin-top: 20px;
+    }
+
+    .items .b {
+      margin-top: 5px
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <div style="display: inline-block;">
+      <ul class="nav" style="margin-right: 300px;">
+        <li class="nav-item">
+          <a class="nav-link" href="/board/qnaList/">Q&As</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/board/reviewList/">상품후기</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/board/noticeList">공지사항</a>
+        </li>
+      </ul>
+    </div>
+
+    <div style="display: inline-block;">
+      <ul class="nav">
+
+        {% if request.session.login != None %}
+        <li class="nav-item">
+          <a class="nav-link" href="/login/logout/">로그아웃</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/mypage/mypage/">마이페이지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/basket/basket/">장바구니</a>
+        </li>
+        {%else%}
+        <li class="nav-item">
+          <a class="nav-link" href="/login/">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/member/join/">회원가입</a>
+        </li>
+
+        {%endif%}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/order/">주문조회</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/manager/">관리자페이지</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="container" style="text-align : center;">
+    <hr>
+    <div style="display: flex; padding: 10px -10px;">
+      <div class="col-4">
+        <!--N토이 shop-->
+        <a href="/"><img class="img-thumbnail" style="width: 200px; height: 100px;"
+            src="http://ntoyshop.com/design/fstr07/da_image/logo.gif"></a>
+      </div>
+      <div class="col-4">
+        <!--search-->
+        <nav class="navbar navbar-light bg-light">
+          <input onkeyup="enterkey()" id="aaa" class="form-control mr-sm-2" type="search" placeholder="Search">
+        </nav>
+      </div>
+      <div class="col-4">
+        <!--당일출고-->
+        <img class="img-thumbnail" style="width: 200px; height: 100px;"
+          src="http://ntoyshop.com/design/fstr07/da_image/deliverynotice.gif">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="text-align : center;">
+    <hr>
+    <!--navvar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              전체 카테고리
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/">토미카</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">키덜트/취미</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">문구/펜시/생활</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">남아케릭터</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              토미카
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=2">스탠다드 토미카</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=3">토미카 월드 놀이 세트</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              남아캐릭터
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=4">신비아파트</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=5">파워레인저</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              여아캐릭터
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=6">미미인형/엑세서리</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=7">미미펫/보드게임</a>
+
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              키덜트/취미
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=8">메타코레</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=9">프라레일</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              문구/팬시/생활
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/browse/page/?no=10">카드게임</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">아이슬라임</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              베스트 상품
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">베스트100</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              초특가상품
+            </a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">캡슐토이</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">오픈박스</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container" style="text-align : center;">
+    <div class="row" style="padding: 10px 0px 5px;">
+      <div class="col-3">
+        <p class="font-weight-light">N토이샵</p>
+        <h3>
+          <p class="font-weight-light">BEST아이템</p>
+        </h3>
+      </div>
+      <div class="col-3">
+        <!--카-->
+        <img class="img-thumbnail" style="width: 400px; height: 100px;"
+          src="http://ntoyshop.com/design/fstr07/da_image/event_banner01.gif">
+      </div>
+      <div class="col-3">
+        <!--메타코레-->
+        <img class="img-thumbnail" style="width: 400px; height: 100px;"
+          src="http://ntoyshop.com/design/fstr07/da_image/event_banner02.gif">
+      </div>
+      <div class="col-3">
+        <!--캡슐 토이-->
+        <img class="img-thumbnail" style="width: 400px; height: 100px;"
+          src="http://ntoyshop.com/design/fstr07/da_image/event_banner03.gif">
+      </div>
+    </div>
+  </div>
+
+  {%block content%}
+  {%endblock%}
+
+ <!--customer center-->
+ <div class="container">
+  <div class="row" style="padding: 0px 0px 5px;">
+    <div class="col-3">
+      <p class="font-weight-light">N토이샵</p>
+      <h3>
+        <p class="font-weight-light">070-4420-8034</p>
+      </h3>
+      <p class="user-select-all">평일:10:00~16:00(전화응대 가능시간)</p>
+      <h6>
+        <p class="font-weight-light">점심 : 12:00~13:00</p>
+      </h6>
+      <h6>
+        <p class="font-weight-light">토,일요일 및 공휴일은 휴무입니다.</p>
+      </h6>
+    </div>
+    <div class="col-3">
+      <div class="d-grid gap-2 col-6 ">
+        <button class="btn btn-primary" type="button">주문 조회</button>
+      </div>
+    </div>
+    <div class="col-3">
+      <p>NOTICE & NEWS<br>
+        <a href="/board/noticeList/">공지사항</a>
+      </p>
+    </p>
+    <div style="display: inline-block;">
+      <a href="/board/noticeRead/?not_num=2" class="text-decoration-none">★2022년 설날 배송 안내</a><br>
+      <a href="/board/noticeRead/?not_num=7" class="text-decoration-none">★가장 빠른 카톡 상담톡</a><br>
+      <a href="/board/noticeRead/?not_num=5" class="text-decoration-none">★토스 결제</a>
+    </div>
+</div>
+    <div class="col-3">
+      <img class="img-thumbnail" style="width: 400px; height: 200px;"
+        src="https://www.ntoyshop.com/design/fstr07/da_image/foot_notice.gif">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<img src="https://www.ntoyshop.com/design/fstr07/da_image/footer_banner.gif" class="img-fluid" alt="..." width="100%" height="150px">
+
+
+  <!--엔터키-->
+  <script>
+    function enterkey() {
+      if (window.event.keyCode == 13) {
+        location.href = "/search/search/?search=" + document.getElementById('aaa').value;
+        // 엔터키가 눌렸을 때
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

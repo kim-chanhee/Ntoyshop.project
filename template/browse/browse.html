@@ -1,0 +1,25 @@
+{%extends 'layout/layout.html'%}
+{%load static%}
+
+
+{%block content%}
+{%for i in m%}
+<div>
+    <table class="table" style="width: 200px;" align="center">
+        <tr>
+            <td>
+                <a href="/browse/show/?no={{i.goods_num}}"><img src="{% static 'img/wolf.jpg' %}" class="img-thumbnail"></a>
+            </td>
+        </tr>
+            <td>
+                <a href="/browse/show/?no={{i.goods_num}}">{{i.goods_name}}</a>
+            </td>
+        <tr>
+            <td>
+                {{i.goods_c_price}}  {{i.goods_sale_price}}
+            </td>
+        </tr>
+    </table>
+</div>
+{%endfor%}
+{%endblock%}

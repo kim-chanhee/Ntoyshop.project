@@ -1,0 +1,67 @@
+{% extends 'layout/layout_admin.html' %}
+{% load static %}
+{% block script %}
+    <script type="text/javascript">
+        function check(f){
+            const id = f.id.value;
+            const password = f.password.value;
+            if(id == ''){
+                alert("ID를 입력하십시오!");
+                f.id.focus();
+                return false;
+            }
+            if(password == ''){
+                alert("PW를 입력하십시오!");
+                f.password.focus();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+{% endblock %}
+{%block content%}
+<br><br>
+<div style="display: flex; justify-content: center;">
+    <form action = '/manager/checkLogin/' method="post" name="login" onsubmit="return check(this);">
+        {% csrf_token %}
+        
+        <table class="table table-borderless">
+            
+            <tr>
+                <div style="font-size:30px; font-family:Verdana; font-style:italic">MEMBERS</div>
+                <div style="font-size:20px; font-family:Arial">LOGIN</div>
+            </tr>
+            
+            <tr>
+                <th>아이디</th>
+                <td>
+                    {% if id == None %}
+                        <input type="text" name="id">
+                    {% else %}  
+                        <input type="text" name="id" value="{{id}}">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <span style="float: left; font-size: 0.7em; font-weight: bold; margin-top: 5px;">
+                        {% if check %}
+                            <input type="checkbox" name="ckid" value="true" checked>아이디 기억하기
+                        {% else %}
+                            <input type="checkbox" name="ckid" value="true">아이디 기억하기
+                        {% endif %}
+                    </span>
+                    <input type="image" src="{% static 'img/loginbutton.jpg' %}" onclick="javascript:checkJoin()">
+                </td>
+            </tr>
+        </table>
+        
+        
+    </form>
+</div>
+{% endblock %}

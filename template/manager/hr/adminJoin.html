@@ -1,0 +1,96 @@
+{%extends 'manager/hr/hr.html'%}
+
+
+{%block script%}
+<script type="text/javascript">
+	function checkJoin() {
+		if(document.mjoin.name.value == ""){
+			alert("이름을 입력하십시오!");
+		}else if(document.mjoin.id.value == ""){
+			alert("아이디을 입력하십시오!")
+		}else if(document.mjoin.pw.value == ""){
+			alert("비밀번호을 입력하십시오!")
+        }else if(document.mjoin.pw.value != document.mjoin.repw.value){
+			alert("비밀번호와 비밀번호확인이 다릅니다!")
+        }
+		else{
+			document.mjoin.submit();
+		}
+	}
+</script>
+{%endblock%}
+
+
+{%block content%}
+<br><br>
+<form action="/manager/checkJoin/" method="post" name="mjoin">
+    {% csrf_token %}
+    <table class="table" style="width: 800px;" align="center">
+        <thead>
+            <tr>
+                <th colspan="3">
+                    관리자정보 입력
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <th>
+                이름
+            </th>
+            <td colspan="2">
+                <input type="text" name="name">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                아이디
+            </th>
+            <td colspan="2">
+                <input type="text" name="id">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                비밀번호
+            </th>
+            <td colspan="2">
+                <input type="password" name="pw">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                비밀번호 확인
+            </th>
+            <td colspan="2">
+                <input type="password" name="repw">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                부서명
+            </th>
+            <td colspan="2">
+                <fieldset>
+                    <select id="class" name="department">
+                        <optgroup label="부서">
+                          <option value="1">관리자</option>
+                          <option value="2">마케팅</option>
+                          <option value="3">인사</option>
+                          <option value="4">재고관리</option>
+                          <option value="5">고객관리</option>
+                        </optgroup>
+                </select>
+                </fieldset>
+            </td>
+        </tr>
+        <tr >
+            <td colspan="4" align="center">
+                <input type="button"class="btn btn-secondary" value="회원가입" onclick="javascript:checkJoin()">
+            </td>
+        </tr>
+    </table>
+
+</form>
+</div>
+
+{%endblock%}

@@ -1,0 +1,24 @@
+{%extends 'layout/layout_admin.html'%}
+
+{%block content%}
+  <div class="table" align="center">
+        <h3>{{date}} 출석부</h3>
+        <table>
+            <thead>
+
+                <th>이름</th>
+                <th>출결</th>
+            </thead>
+            <tbody>
+                {% for info in info %}
+
+                <tr>
+
+                    <td>{{info.name}}</td>
+                    <td bgcolor="#FFEFD5">{{info.attendance}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{%endblock%}

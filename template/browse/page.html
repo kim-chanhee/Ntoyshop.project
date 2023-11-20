@@ -1,0 +1,51 @@
+{%extends 'layout/layout.html'%}
+{%load static%}
+
+
+{%block content%}
+<!-- {%for i in m%}
+<div>
+    <table class="table" style="width: 200px;" align="center">
+        <tr>
+            <td colspan="2">
+                <a href="/browse/show/?no={{i.goods_num}}"><img src="{{i.goods_image.url}}" class="img-thumbnail"></a>
+            </td>
+        </tr>
+            <td colspan="2" align="center">
+                <a href="/browse/show/?no={{i.goods_num}}">{{i.goods_name}}</a>
+            </td>
+        <tr>
+            <td>
+                <strike>{{i.goods_c_price}}원</strike>     
+            </td>
+            <td>
+                {{i.goods_sale_price}}원
+            </td>
+        </tr>
+    </table>
+</div>
+{%endfor%} -->
+<br><br>
+<div>
+    <table class="table" style="width:600px; height:200px;" align="center">
+        <tr>
+            {%for i in m%}
+            
+                <td style="width: 150px; height: 200px;" align="center"><div>
+                <div >                   
+                    <a href="/browse/show/?no={{i.goods_num}}"><img src="{{i.goods_image.url}}" width="175" height="250" class="img-thumbnail"></a>
+                </div>
+                    <a href="/browse/show/?no={{i.goods_num}}">{{i.goods_name}}</a><br>
+    
+                    <strike>{{i.goods_c_price}}원</strike>     
+
+                    {{i.goods_sale_price}}원
+                </td>
+            </div>
+
+            {%endfor%}
+        </tr>
+    </table>
+</div>
+<br><br>
+{%endblock%}

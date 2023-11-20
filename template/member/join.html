@@ -1,0 +1,170 @@
+{%extends 'layout/layout.html'%}
+
+{%block script%}
+<script type="text/javascript">
+	function checkJoin() {
+		if(document.join.name.value == ""){
+			alert("이름을 입력하십시오!");
+		}else if(document.join.id.value == ""){
+			alert("아이디을 입력하십시오!")
+		}else if(document.join.pw.value == ""){
+			alert("비밀번호을 입력하십시오!")
+        }else if(document.join.pw.value != document.join.repw.value){
+			alert("비밀번호와 비밀번호확인이 다릅니다!")
+        }else if(document.join.email.value == ""){
+			alert("이메일을 입력하십시오!")
+        }else if(document.join.tel1.value == ""){
+			alert("번호를 입력하십시오!")
+        }else if(document.join.tel2.value == ""){
+			alert("번호를 입력하십시오!")
+        }else if(document.join.tel3.value == ""){
+			alert("번호를 입력하십시오!")
+        }
+		else{
+			document.join.submit();
+		}
+	}
+</script>
+{%endblock%}
+
+
+{%block content%}
+<br><br>
+<form action="/member/checkJoin/" method="post" name="join">
+    {% csrf_token %}
+    <table class="table" style="width: 800px;" align="center">
+        <thead>
+            <tr>
+                <th colspan="3">
+                    회원정보 입력
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <th>
+                이름
+            </th>
+            <td colspan="2">
+                <input type="text" name="name">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                아이디
+            </th>
+            <td id="tdata" colspan="2">
+                <input type="text" name="id">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                비밀번호
+            </th>
+            <td colspan="2">
+                <input type="password" name="pw">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                비밀번호 확인
+            </th>
+            <td colspan="2">
+                <input type="password" name="repw">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                이메일
+            </th>
+            <td colspan="2">
+                <input type="email" name="email">
+            </td>
+        </tr>
+        <tr>
+            <th>
+                휴대폰번호
+            </th>
+            <td colspan="2">
+                <fieldset>
+                    <select id="class" name="tel1">
+                        <optgroup label="tel">
+                          <option value="010">010</option>
+                          <option value="017">017</option>
+                          <option value="018">018</option>
+                        </optgroup>
+                </select>
+                </fieldset>
+                -<input type="text" size="4" name="tel2" maxlength="4">
+                -<input type="text" size="4" name="tel3" maxlength="4">
+            </td>
+        </tr>
+    </table>
+    <table style="width: 800px;" align="center">
+        <td>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="agree" value="1" id="flexCheckDefault" required>
+                <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        만 14세 이상입니다(필수)                 
+                    </font><br>
+                    <font size="1">*회원가입에 필요한 최소한의 정보만 입력 받음으로써 고객님의 개인정보 수집을 최소화하고 편리한 회원가입을 제공합니다.</font>
+    
+                </label>
+        </td>
+    </table>
+    <br><br>
+    <table class="table" style="width: 800px;" align="center">
+        <tr>
+            <td colspan="2">
+                <input class="form-check-input" type="checkbox" required name="agree_terms" value="1" id="flexCheckDefault" >
+                <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        이용약관(필수)
+                    </font><br>
+                </label>
+            </td>
+            <td colspan="2">
+                <input class="form-check-input" type="checkbox" name="agree_private" value="1" id="flexCheckDefault" required>
+                <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        개인정보 수집 및 이용 안내(필수)            
+                    </font><br>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>마케팅 수신동의</td>
+               <td>
+                    <input class="form-check-input" type="checkbox" name="agree_email" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        이메일            
+                    </font>
+                </label>
+               </td>
+               <td>
+                    <input class="form-check-input" type="checkbox" name="agree_news" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        SMS           
+                    </font>
+                </label>
+               </td>
+               <td>
+                    <input class="form-check-input" type="checkbox" name="agree_push" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    <font size="3">
+                        앱Push알림     
+                    </font>
+                </label>
+        </tr>
+        <tr >
+            <td colspan="4" align="center">
+                <input type="button"class="btn btn-secondary" value="회원가입" onclick="javascript:checkJoin()">
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+
+{%endblock%}

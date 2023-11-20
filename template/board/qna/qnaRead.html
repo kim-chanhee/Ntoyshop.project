@@ -1,0 +1,54 @@
+{% extends 'layout/layout.html' %}
+
+{% block script %}
+    <script type="text/javascript">
+        function deleteAction(){
+            var check = confirm("삭제하겠습니까?");
+
+            if(!check){
+                return
+            }
+
+            location.href= '/board/qnaDelete/?q_num={{content.q_num}}'
+        }
+    
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width: inherit; margin: 0px auto;">
+            <tr>
+                <th>제목</th>
+                <td>{{content.q_title}}</td>
+                <th>조회수</th>
+                <td>{{content.q_hits}}</td>
+                <th>작성일</th>
+                <td>{{content.q_w_date}}</td>
+            </tr>
+            <tr>
+                <th>질문내용</th>
+                <td colspan="5">
+                    {% autoescape off %}
+                        {{content.q_text}}
+                    {% endautoescape %}
+                </td>
+            </tr>
+
+        </table>
+        <div class="button" style="width: inherit; margin: 0px auto; display:flex; justify-content: center">
+        {% if request.session.login == content.q_c_num.user_no %}
+            <input type="button" value="수정" onclick="location.href='/board/qnaUpdate?q_num={{content.q_num}}'">
+            <input type="button" value="삭제" onclick="deleteAction()">
+        {% elif request.session.manager != None %}
+            <input type="button" value="수정" onclick="location.href='/board/qnaUpdate?q_num={{content.q_num}}'">
+            <input type="button" value="삭제" onclick="deleteAction()">
+        {% endif %} 
+        <!-- 멤버 테이블과의 연동 -->
+        {% if request.session.manager != None %}
+            <input type="button" value="답글" onclick="location.href='/board/qnaWrite/{{ content.q_num }}'">
+        {% endif %}
+        <input type="button" value="목록" onclick="location.href='/board/qnaList/'">
+        </div>
+    </div>
+{% endblock %}

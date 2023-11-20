@@ -1,0 +1,42 @@
+{%extends 'layout/layout.html'%}
+
+
+{%block content%}
+{%load user_template%}
+<br><br>
+<h2 align="center">주문조회</h2>
+<form action="/order/returnsResult/" method="post" name="return">
+    {% csrf_token %}
+    <table class="table" style="width: 800px;" align="center">
+        <input type="hidden" name="no" value="{{p.pay_idx}}">
+        <input type="hidden" name="date" id="{{n}}">
+        <tr>
+            <td>반품일자</td>
+            <td>
+                {{n}}
+            </td>
+        <tr>
+            <td>
+                상품명
+            </td>
+            <td>
+                {{p.pay_product_no.goods_name}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                반품사유
+            </td>
+            <td colspan="2"><textarea name="message" id="" cols="30" rows="5"></textarea></td>
+        </tr>
+            <td>
+                <input type="submit" class="button" value="반품등록">
+            </td>
+
+        </tr>     
+            
+        </tr>
+
+</table>
+</form>
+{%endblock%}

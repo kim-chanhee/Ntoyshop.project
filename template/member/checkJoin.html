@@ -1,0 +1,23 @@
+{% extends 'layout/layout.html' %}
+
+{%block content%}
+        <div style="display: flex; justify-content: center;">
+            <br><br><br><br>
+            <table>
+                <tr>
+                    <td>
+                        {{msg}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button"class="btn btn-secondary" value="홈으로" onclick="document.location.href='/'">
+                    </td>
+                </tr>
+            </table>
+             <br>
+
+        </div>
+
+
+{% endblock %}

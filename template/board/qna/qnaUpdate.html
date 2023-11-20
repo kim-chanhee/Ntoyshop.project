@@ -1,0 +1,32 @@
+{% extends 'layout/layout.html' %}
+
+{% block script %}
+    <script type="text/javascript">
+        function checkupdate() {
+            if(document.write.q_title.value == ""){
+                alert("제목입력필요");
+            }else if(document.write.q_text.value == ""){
+                alert("내용 입력 필요");
+            }else{
+                document.write.submit();
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div style="width: 90%; margin: 0px auto;">
+        <form action="/board/qnaUpdateCheck/" method="post" name="write">
+            <!-- qna부분은 지정하게될 app명으로 전환이 필요 -->
+            {% csrf_token %}
+            <input type="hidden" name="q_num" value="{{q_num}}">
+            <table class="table" style="margin:0px auto;;">
+                {{forms.as_table}}
+            </table>
+            <div class = "button" style="text-align: center; margin-top: 10px; width: inherit;">
+                <input type="button" value="수정" onclick="javascript:checkupdate()">
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

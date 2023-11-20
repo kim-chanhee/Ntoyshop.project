@@ -1,0 +1,31 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<form action="/manager/updateResult/" method="post" name="cateA">
+    <input type="hidden" name="no" value="{{a.a_idx}}">
+    {% csrf_token %}
+    <table class="table" style="width: 600px;" align="center">
+        <thead>
+            <tr>
+                <th align="center" colspan="2">
+                    대분류 등록
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <th>대분류 이름</th>
+            <td>
+                <input type="text" name="name" required>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit"class="btn btn-secondary" value="수정">
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}

@@ -1,0 +1,86 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+{% load user_template %}
+<br><br>
+
+<h1 align="center">T계정</h1>
+<ul>
+    <li>
+        <table align="center" class="table" style="width: 500px;">
+
+            <tr>
+                <th colspan="4" align="center">급여</th>
+            </tr>
+            <tr>
+                <th colspan="2" align="center">차변</th>   
+                <th colspan="2" align="center"> 대변</th>
+            </tr>
+            <tr>
+                <td rowspan="2" align="center">
+                    급여
+                </td>
+                <td rowspan="2" align="center">
+                    {{b}}
+                </td>
+                <td align="center">
+                    예수금
+                </td>
+                <td align="center">
+                    {{d}}
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    보통예금
+                </td>
+                <td align="center">
+                    {{q}}
+                </td>
+            </tr>
+        
+        </table>
+    </li>
+    <li>
+        <table align="center" class="table" style="width: 500px;">
+
+            <tr>
+                <th colspan="4">상품</th>
+            </tr>
+            <tr>
+                <th colspan="2">차변</th>   
+                <th colspan="2"> 대변</th>
+            </tr>
+            <br><br>
+            <tr>
+                <td >
+                    판매촉진비
+                </td>
+                <td >
+                    
+                </td>
+                <td rowspan="2">
+                    상품
+                </td>
+                <td rowspan="2">
+                    {{aa}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    외상매출금
+                <td>
+                    {{aa}}
+                </td>
+            </tr>
+        
+        </table>
+    </li>
+</ul>
+
+
+
+
+
+{%endblock%}

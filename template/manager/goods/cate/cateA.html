@@ -1,0 +1,30 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+<br><br>
+<form action="/manager/cateAresult/" method="post" name="cateA">
+    {% csrf_token %}
+    <table class="table" style="width: 600px;" align="center">
+        <thead>
+            <tr>
+                <th align="center" colspan="2">
+                    대분류 등록
+                </th>
+            </tr>
+        </thead>
+        <tr>
+            <th>대분류 이름</th>
+            <td>
+                <input type="text" name="name" required>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit"class="btn btn-secondary" value="등록">
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}

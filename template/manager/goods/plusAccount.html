@@ -1,0 +1,25 @@
+{%extends 'layout/layout_admin.html'%}
+
+{%block content%}
+<br><br>
+<form action="/manager/plusResult/" method="post" name="plusAccount">
+    {% csrf_token %}
+    <input type="hidden" name="no" value="{{g.goods_num}}" >
+    <table class="table" align="center" style="width: 500px;" >
+        <tr>
+            <th>상품명</th>
+            <td>{{g.goods_name}}</td>
+        </tr>
+        <tr>
+            <th>입고수량</th>
+            <td><input type="number" name="plus" required></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" value="입고">
+            </td>
+        </tr>
+    </table>
+
+</form>
+{%endblock%}

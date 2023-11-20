@@ -1,0 +1,72 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+    {% load user_template %}
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width:inherit; margin: 0px auto;">
+            <tr style="border-bottom: 1px black solid;">
+                <th>질문번호</th>
+                <th>제목</th>
+                <th>회원id</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            {% for q in list %}
+                <tr>
+                    <td>{{q.q_num}}</td>
+                    <td>
+                        {% autoescape off %}{{ q.q_depth|reStr }}{% endautoescape %}
+                        <a href="/board/qnaRead/?q_num={{q.q_num}}">{{q.q_title}}</a>
+                    </td>
+                    <td>{{q.q_c_num.user_id}}</td>
+                    <td>{{q.q_w_date|date:'Y년 m월 d일'}}</td>
+                    <td>{{q.q_hits}}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8" style="text-align: center;">
+                        작성된 글이 없습니다
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="text-align: right;">
+                    {% if request.session.login != None %}
+                        <button onclick="document.location.href='/board/qnaWrite/0'">QnA작성</button>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <div style="text-align:right; margin-top:10px;">
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+            <!-- 페이지 인덱스 부분 -->
+
+            {% if list.has_previous %}
+                <a href="/board/qnaList/?page=1">[<<]</a>
+                <!-- qna 부분 서브앱 명으로 변경이 필요 -->
+                <a href="/board/qnaList/?page={{ list.previous_page_number}}">[<]</a>
+            {% else %}
+                [<<][<]
+            {% endif %}
+
+            {% for page_number in list.paginator.page_range %}
+                {% if start_page <= page_number and end_page >= page_number %}
+                    {% if page_number == list.number %}
+                        <a href = "#" style="font-weight: bolder; color: chocolate;">{{page_number}}</a>
+                    {% else %}
+                        <a href="/board/qnaList/?page={{page_number}}">[{{page_number}}]</a>
+                        <!-- qna부분 서브앱명으로 변경이 필요 -->
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if list.has_next %}
+                <a href = "/board/qnaList/?page={{ list.next_page_number }}">[>]</a>
+                <a href="/board/qnaList/?page={{last_page}}">[>>]</a>
+            {% else %}
+                [>][>>]
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

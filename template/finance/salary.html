@@ -1,0 +1,21 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+
+    <h2 align="center">급여지급</h2>
+    {%for i in a%}
+        <table align="center">
+            <tr>
+                <th>
+                    <input type="text" name="name" value={{i.admin_name}}>
+                </th>
+                <td>
+                    <input type="button" value="급여지급" onclick="document.location.href='/finance/salaryResult/{{ i.admin_idx }}'">
+                </td>
+            </tr>
+        </table>
+    {%endfor%}
+
+
+{%endblock%}

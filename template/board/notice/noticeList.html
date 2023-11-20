@@ -1,0 +1,115 @@
+{% extends 'layout/layout.html' %}
+
+
+{% block content %}
+
+     <!-- 공지 고정 부분 -->
+    <div style="width: 90%; margin: 0px auto;">
+        <table style="width:inherit; margin: 0px auto; text-align: center;">
+            <tr style="border-bottom: 1px black solid;">
+                <th>공지번호</th>
+                <th>제목</th>
+                <th>관리자id</th>
+                <th>작성일</th>
+                <th>조회수</th>
+            </tr>
+            
+            {% for i in list %}
+            
+                {% if i.not_checks == True %}
+            
+                <tr style="border: 1px black solid; background-color: rgb(231, 130, 147); font-style: italic; border-radius: 15px;">
+                        <td style="width: 15%;">중요!</td>
+                        <td style="width: 40%;">
+                            <a href="/board/noticeRead/?not_num={{i.not_num}}" style="color: black;">{{i.not_title}}</a>
+                        </td>
+                        <td style="width: 10%;">{{i.not_admin_num.admin_id}}</td>
+                        <td style="width: 20%;">{{i.not_write_date|date:'Y년 m월 d일'}}</td>
+                        <td>{{i.not_hits}}</td>
+
+                    
+                </tr>
+                {% endif %}
+            
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+    <!-- 일반 공지 부분 -->
+    <div style="width: 90%; margin: 0px auto;">
+
+        <table style="width:inherit; margin: 0px auto; text-align: center;">
+
+
+            {% for n in list %}
+
+                {% if n.not_checks == False %}
+                    <tr>
+                        <td style="width: 15%;">{{n.not_num}}</td>
+                        <td style="width: 40%;">
+                            <a href="/board/noticeRead/?not_num={{n.not_num}}">{{n.not_title}}</a>
+                        </td>
+                        <td style="width: 10%;">{{n.not_admin_num.admin_id}}</td>
+                        <td style="width: 20%;">{{n.not_write_date|date:'Y년 m월 d일'}}</td>
+                        <td>{{n.not_hits}}</td>
+                    </tr>
+                {% endif %}
+            {% empty %}
+                {% if n.not__checks == False %}
+                    <tr>
+                        <td colspan="4" style="text-align: center;">
+                            작성된 글이 없습니다
+                        </td>
+                    </tr>
+                {% endif %}
+
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align: center;">
+
+                    {% if request.session.manager != None %}
+                        <button onclick="document.location.href='/board/noticeWrite/'">공지작성</button>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+
+       
+        <div style="text-align: center; margin-top: 10px;">
+            <!-- 페이지 인덱스 부분 -->
+
+            {% if list.has_previous %}
+                <a href="/board/noticeList/?page=1">[<<]</a>
+                <!-- notice 부분 서브앱 명으로 변경이 필요 -->
+                <a href="/board/noticeList/?page={{ list.previous_page_number}}">[<]</a>
+            {% else %}
+                [<<][<]
+            {% endif %}
+
+            {% for page_number in list.paginator.page_range %}
+                {% if start_page <= page_number and end_page >= page_number %}
+                    {% if page_number == list.number %}
+                        <a href = "#" style="font-weight: bolder; color: chocolate;">{{page_number}}</a>
+                    {% else %}
+                        <a href="/board/noticeList/?page={{page_number}}">[{{page_number}}]</a>
+                        <!-- notice부분 서브앱명으로 변경이 필요 -->
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if list.has_next %}
+                <a href = "/board/noticeList/?page={{ list.next_page_number }}">[>]</a>
+                <a href="/board/noticeList/?page={{last_page}}">[>>]</a>
+            {% else %}
+                [>][>>]
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+              
+      

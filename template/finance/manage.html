@@ -1,0 +1,43 @@
+{%extends 'layout/layout_admin.html'%}
+
+
+{%block content%}
+
+
+    {% csrf_token %}
+    <h2 align="center">급여관리</h2>
+   
+    <table align="center" class="table" style="width: 500px;">
+        <tr>
+            <td>
+                관리자 이름
+            </td>
+            <td>
+                지급일
+            </td>
+            <td>
+                지급금액
+            </td>
+            <td>
+                수정/삭제
+            </td>
+        </tr>
+        {%for i in s%}
+        <tr>
+            <th>
+                {{i.s_name}}
+            </td>
+            <td>
+                {{i.s_date}}
+            </td>
+            <td>
+                3,500,000
+            </td>
+            <td>
+                <button onclick="document.location.href='/finance/sDelete/?no={{i.s_no}}'">삭제</button>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    
+{%endblock%}

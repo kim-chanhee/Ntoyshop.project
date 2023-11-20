@@ -1,0 +1,12 @@
+{%extends 'layout/layout_admin.html'%}
+
+{%block content%}
+<div class="regibox" align="center">
+    <form method="POST" action="/attention/showtable/">
+        {% csrf_token %}
+        <input type="date" id="date" name="date" value="2022-09-15" min="2022-07-01" max="2024-01-01">
+        <br><br>
+        <button type="submit" value="submit">출석부 조회</button>
+    </form>
+</div>
+{%endblock%}

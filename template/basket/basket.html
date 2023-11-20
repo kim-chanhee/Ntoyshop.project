@@ -1,0 +1,91 @@
+{%extends 'layout/layout.html'%}
+
+{%block script%}
+<script type="text/javascript">
+	function check() {
+		if(document.basket.count.value == ""){
+			alert("수량을 입력하십시오!");
+		}else if(document.basket.count.value <= 0){
+      alert("수량을 입력하십시오!");
+    }
+    else{
+			document.basket.submit();
+		}
+	}
+</script>
+{%endblock%}
+{%block content%}
+
+<form action="/pay/" method="post" name="basket">
+  {% csrf_token %}
+  <div class="container">
+    <table class="table" style="width: 1250px;", align="center">
+    <thead>
+      <th colspan="6" style="text-align:right;"> Home > 장바구니</th>
+    </thead>
+    <thead>
+      <tr>
+        <th colspan="6">SHOPPING CART</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>사진</td>
+        <td>제품명</td>
+        <td>가격</td>
+        <td style="width: 100px;">배송비</td>
+        <td>수량</td>
+        <td style="text-align:center;">주문하기</td>
+        <td style="text-align:center;">취소</td>
+      </tr>
+
+      {% for bc in b %}
+      <tr>
+        <td><img src="{{bc.bas_product_no.goods_image.url}}" width="100" height="100" alt=""></td>
+        <td>{{bc.bas_product_no.goods_name}}</td>
+        <td>{{bc.bas_product_no.goods_sale_price}}</td>
+        <td>2500원</td>
+        <td style="width: 110px;"><input type="number" name="count" style="width: 100px;"></td>
+        <td style="width: 110px;">
+          <div class="d-grid gap-2 col-6 mx-auto" align="center">
+            <input type="hidden" name="no" value="{{bc.bas_product_no.goods_num}}">
+            <input type="button"class="btn btn-secondary" value="주문하기" onclick="javascript:check()">
+            
+            </div>
+        </td>
+        <td>
+          <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-primary" type="button" onclick="location.href='/basket/delete/?no={{bc.bas_idx}}'">삭제</button>
+          </div>
+        </td>
+      </tr>
+      {%empty%}
+      <tr>
+        <th>상품이 없습니다.</th>
+    </tr>     
+      {% endfor %}
+      <tr>
+        <th colspan="6"></th>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</form>
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
